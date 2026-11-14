@@ -113,6 +113,14 @@ p{margin:0}
 .grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
 .tile{border:0;background:none;padding:0;aspect-ratio:63/88;border-radius:5cqw;text-align:left}
 .tile .cw{pointer-events:none}
+.done{align-items:center;text-align:center}
+.done .center{gap:22px}
+.badge{width:min(52vw,210px);aspect-ratio:1;border-radius:50%;background:var(--peach);color:var(--ink);display:grid;place-items:center;animation:pop .7s cubic-bezier(.3,1.6,.5,1) both}
+.badge svg{width:46%;height:46%;fill:none;stroke:var(--ink);stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round}
+.done h2{font-size:2rem;max-width:12em}
+.done .actions{width:100%}
+@keyframes pop{from{transform:scale(.4);opacity:0}to{transform:scale(1);opacity:1}}
+@media (prefers-reduced-motion:reduce){.badge{animation:none}}
 .about p{margin-bottom:12px}
 .about ul{padding-left:0;list-style:none;margin:0 0 12px;display:flex;flex-direction:column;gap:10px}
 .about li{display:flex;gap:12px;align-items:center}
@@ -161,6 +169,16 @@ p{margin:0}
   <div class="top"><button class="link" data-go="home">Back</button><span class="brand">All 80 cards</span></div>
   <div class="tabs" id="tabs" role="tablist"></div>
   <div class="grid" id="grid"></div>
+</section>
+
+<section id="s-done" class="screen done" hidden aria-labelledby="h-done">
+  <div class="top"><span class="brand">Mom Dopamine Deck</span><span></span></div>
+  <div class="center">
+    <div class="badge" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 20s-7-4.4-7-10a4 4 0 0 1 7-2.4A4 4 0 0 1 19 10c0 5.6-7 10-7 10z"/></svg></div>
+    <h2 id="h-done"></h2>
+    <p class="hint" id="doneSub"></p>
+  </div>
+  <div class="actions"><button class="btn primary" id="dAgain">One more tiny joy</button><button class="btn" id="dHome">Back to start</button></div>
 </section>
 
 <section id="s-about" class="screen about" hidden aria-labelledby="h-about">
@@ -887,7 +905,7 @@ function pick(kind){
 }
 
 /* ---- screens ---- */
-const screens=['home','card','deck','about'];
+const screens=['home','card','deck','about','done'];
 function show(name,push){
   screens.forEach(n=>$('s-'+n).hidden=n!==name);
   if(name!=='card')stopTimer(true);
@@ -915,16 +933,36 @@ function renderActions(){
   const a=$('actions');let h='';
   if(state.mode==='open')h+=`<button class="btn primary" id="aDeck">Back to all cards</button>`;
   else h+=`<button class="btn primary" id="aMore">Another card</button>`;
-  h+=`<button class="btn" id="aHome">That's enough for now</button>`;
+  h+=`<button class="btn" id="aHome">I feel better</button>`;
   a.innerHTML=h;
   const on=(id,f)=>{const e=$(id);if(e)e.onclick=f};
   on('aMore',()=>draw(state.mode));
   on('aDeck',()=>show('deck'));
-  on('aHome',()=>show('home'));
+  on('aHome',()=>showDone());
 }
 function draw(kind){state.mode=kind||'any';openCard(pick(state.mode),state.mode==='quick'?'Quick one':state.mode==='long'?'Bigger one':'')}
 $('boost').onclick=()=>draw('any');$('quick').onclick=()=>draw('quick');$('long').onclick=()=>draw('long');
 $('cardBack').onclick=()=>{state.mode==='open'?show('deck'):show('home')};
+
+/* ---- "I feel better": a small celebration ---- */
+const PRAISE=[
+  ['You did it.','That counts. Really.'],
+  ['Nice work, mama.','A tiny joy is still a joy.'],
+  ['You showed up for yourself.','Even two minutes matter.'],
+  ['Well done.','You took care of someone today. That someone was you.'],
+  ['That was a good one.','You can come back anytime.'],
+  ['You made it better.','Small things add up.'],
+  ['Look at you.','Doing something just for you. Proud of you.']
+];
+let lastPraise=-1;
+function showDone(){
+  let i;do{i=Math.floor(Math.random()*PRAISE.length)}while(PRAISE.length>1&&i===lastPraise);lastPraise=i;
+  $('h-done').textContent=PRAISE[i][0];$('doneSub').textContent=PRAISE[i][1];
+  const b=document.querySelector('#s-done .badge');if(b){b.style.animation='none';void b.offsetWidth;b.style.animation=''}
+  show('done');
+}
+$('dAgain').onclick=()=>draw(state.mode==='open'?'any':state.mode);
+$('dHome').onclick=()=>show('home');
 
 /* ---- timer ---- */
 let tm=null,wl=null;
