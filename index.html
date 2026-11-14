@@ -1,0 +1,964 @@
+<!doctype html>
+<html lang="en"><head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Mom Dopamine Deck</title>
+<meta name="theme-color" content="#1F2A44">
+<meta name="description" content="Mom Dopamine Deck: 80 tiny joys for tired moms. Press once, do one small thing.">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icons/icon-192.png">
+<link rel="apple-touch-icon" href="icons/icon-180.png">
+<style>@font-face{font-family:'Atkinson Hyperlegible';font-style:normal;font-weight:400;font-display:swap;src:url(fonts/AtkinsonHyperlegible-0.woff2) format('woff2');unicode-range:U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;}
+@font-face{font-family:'Atkinson Hyperlegible';font-style:normal;font-weight:700;font-display:swap;src:url(fonts/AtkinsonHyperlegible-1.woff2) format('woff2');unicode-range:U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;}
+@font-face{font-family:'DM Sans';font-style:normal;font-weight:500;font-display:swap;src:url(fonts/DMSans-2.woff2) format('woff2');unicode-range:U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;}
+@font-face{font-family:'DM Sans';font-style:normal;font-weight:700;font-display:swap;src:url(fonts/DMSans-2.woff2) format('woff2');unicode-range:U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;}
+</style>
+<style>
+/* Layout concept: one calm column on deep navy. The pastel cards are the only color, so they read first. */
+:root{
+  --navy:#1F2A44; --navy2:#2A3659; --paper:#F7F2E9; --muted:#B9C0D3; --peach:#F7D58B; --ink:#2C3956;
+  --line:rgba(247,242,233,.18);
+  --font-display:'DM Sans',system-ui,sans-serif; --font-body:'Atkinson Hyperlegible',system-ui,sans-serif;
+  color-scheme:dark;
+}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{height:100%}
+body{margin:0;background:var(--navy);color:var(--paper);font-family:var(--font-body);font-size:18px;line-height:1.45;
+  padding-left:max(18px,env(safe-area-inset-left,0px));padding-right:max(18px,env(safe-area-inset-right,0px));
+  padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+#app{max-width:460px;margin:0 auto;min-height:100%;display:flex;flex-direction:column}
+.screen{flex:1;display:flex;flex-direction:column;gap:18px;padding-block:14px 26px}
+.screen[hidden]{display:none}
+.top{display:flex;justify-content:space-between;align-items:center;min-height:44px}
+.brand{font-family:var(--font-display);font-weight:700;letter-spacing:.2em;text-transform:uppercase;font-size:.8rem;color:var(--muted)}
+button{font:inherit;color:inherit;cursor:pointer}
+.link{background:none;border:0;color:var(--muted);text-decoration:underline;text-underline-offset:3px;padding:10px 4px;min-height:44px}
+:focus-visible{outline:3px solid var(--peach);outline-offset:3px;border-radius:8px}
+[tabindex="-1"]:focus{outline:none}
+h1,h2{font-family:var(--font-display);font-weight:700;letter-spacing:-.01em;line-height:1.15;margin:0}
+h2{font-size:1.5rem}
+p{margin:0}
+.small{color:var(--muted);font-size:.9rem}
+
+/* home */
+.center{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;padding-block:6px}
+.boost{position:relative;width:min(62vw,250px);aspect-ratio:1;border-radius:50%;border:0;background:var(--peach);color:var(--ink);
+  font-family:var(--font-display);font-weight:700;font-size:clamp(1.5rem,7vw,2rem);letter-spacing:.14em;
+  box-shadow:0 0 0 14px rgba(247,213,139,.16),0 0 0 32px rgba(247,213,139,.08);animation:pulse 6s ease-in-out infinite}
+.boost:active{transform:scale(.97)}
+@keyframes pulse{0%,100%{box-shadow:0 0 0 14px rgba(247,213,139,.16),0 0 0 32px rgba(247,213,139,.08)}50%{box-shadow:0 0 0 20px rgba(247,213,139,.14),0 0 0 42px rgba(247,213,139,.06)}}
+.hint{color:var(--muted);text-align:center}
+.toggle{display:flex;gap:14px;align-items:center;background:var(--navy2);border-radius:16px;padding:14px 16px;cursor:pointer;min-height:64px}
+.toggle input{position:absolute;opacity:0;pointer-events:none}
+.knob{flex:none;width:52px;height:30px;border-radius:99px;background:#4A5778;position:relative;transition:background .2s}
+.knob::after{content:"";position:absolute;left:3px;top:3px;width:24px;height:24px;border-radius:50%;background:var(--paper);transition:transform .2s}
+.toggle input:checked+.knob{background:#E8A9C0}
+.toggle input:checked+.knob::after{transform:translateX(22px)}
+.toggle input:focus-visible+.knob{outline:3px solid var(--peach);outline-offset:3px}
+.toggle b{display:block;font-family:var(--font-display)}
+.toggle small{color:var(--muted);font-size:.85rem;line-height:1.3;display:block}
+.row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.btn{min-height:52px;border-radius:14px;border:1.5px solid var(--line);background:transparent;padding:10px 12px;font-family:var(--font-display);font-weight:700;font-size:.95rem;line-height:1.2}
+.btn.primary{background:var(--peach);color:var(--ink);border-color:var(--peach)}
+.btn.full{grid-column:1/-1}
+.btn:active{transform:scale(.98)}
+.btn small{font-weight:400;font-family:var(--font-body);color:inherit;opacity:.85;font-size:.85rem}
+
+/* card + flip */
+.stage{display:flex;justify-content:center;perspective:1200px}
+.flip{position:relative;width:min(80vw,330px);aspect-ratio:63/88}
+.flip .face{position:absolute;inset:0;backface-visibility:hidden;-webkit-backface-visibility:hidden;transition:transform .7s cubic-bezier(.3,.7,.2,1)}
+.flip .f-back{transform:rotateY(0)}
+.flip .f-front{transform:rotateY(180deg)}
+.flip.shown .f-back{transform:rotateY(-180deg)}
+.flip.shown .f-front{transform:rotateY(0)}
+.cw{container-type:inline-size;width:100%;height:100%}
+.card{width:100%;height:100%;background:var(--bg);color:var(--ink);border-radius:4.8cqw;overflow:hidden;position:relative;font-family:var(--font-body);box-shadow:0 10px 30px rgba(0,0,0,.35)}
+.bgart{position:absolute;inset:0;width:100%;height:100%;display:block}
+.grainov{position:absolute;inset:0;background-image:var(--grain);background-size:200px 200px}
+.in{position:relative;z-index:1;height:100%;display:flex;flex-direction:column;padding:6cqw 6.5cqw 6cqw}
+.hd{display:flex;justify-content:space-between;align-items:flex-start}
+.nm{font-family:var(--font-display);font-weight:700;font-size:3.8cqw;letter-spacing:.22em;text-transform:uppercase;padding-top:1.2cqw}
+.no{font-family:var(--font-display);font-weight:700;font-size:11cqw;line-height:1}
+.ttl{font-family:var(--font-display);font-weight:700;line-height:1;letter-spacing:-.025em;margin-top:9cqw;text-wrap:balance;font-size:13cqw}
+.txt{font-size:5.4cqw;line-height:1.34;margin-top:4.2cqw;text-wrap:pretty;max-width:50cqw}
+.sp{flex:1}
+.ft{display:flex;justify-content:space-between;align-items:center}
+.pill{font-family:var(--font-display);font-weight:700;font-size:4.6cqw;background:var(--ink);color:var(--paper);border-radius:99px;padding:1.4cqw 4cqw;white-space:nowrap}
+.tg{width:9.5cqw;height:9.5cqw;border-radius:50%;border:.6cqw solid var(--ink);display:grid;place-items:center}
+.tg svg{width:5.6cqw;height:5.6cqw;fill:none;stroke:var(--ink);stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.back{width:100%;height:100%;border-radius:4.8cqw;overflow:hidden;box-shadow:0 10px 30px rgba(0,0,0,.35)}
+.back svg{width:100%;height:100%;display:block}
+
+/* timer */
+.timer{display:flex;align-items:center;justify-content:center;gap:16px;min-height:76px}
+.ring{position:relative;width:76px;height:76px;flex:none}
+.ring svg{width:100%;height:100%;transform:rotate(-90deg)}
+.ring circle{fill:none;stroke-width:6}
+.ring .bg{stroke:rgba(247,242,233,.16)}
+.ring .fg{stroke:var(--peach);stroke-linecap:round}
+.ring span{position:absolute;inset:0;display:grid;place-items:center;font-family:var(--font-display);font-weight:700;font-size:1rem}
+.msg{text-align:center;color:var(--muted);min-height:1.5em}
+.dots{display:flex;justify-content:center;gap:8px}
+.dots[hidden]{display:none}
+.dots i{width:10px;height:10px;border-radius:50%;background:rgba(247,242,233,.25)}
+.dots i.on{background:var(--peach)}
+.actions{display:flex;flex-direction:column;gap:10px}
+
+/* deck + about */
+.tabs{display:flex;gap:8px;overflow-x:auto;padding-bottom:4px}
+.tab{flex:none;min-height:44px;padding:8px 16px;border-radius:99px;border:1.5px solid var(--line);background:transparent;font-family:var(--font-display);font-weight:700;display:flex;gap:8px;align-items:center}
+.tab[aria-selected="true"]{background:var(--paper);color:var(--ink);border-color:var(--paper)}
+.tab i{width:14px;height:14px;border-radius:50%;display:block}
+.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
+.tile{border:0;background:none;padding:0;aspect-ratio:63/88;border-radius:5cqw;text-align:left}
+.tile .cw{pointer-events:none}
+.about p{margin-bottom:12px}
+.about ul{padding-left:0;list-style:none;margin:0 0 12px;display:flex;flex-direction:column;gap:10px}
+.about li{display:flex;gap:12px;align-items:center}
+.about .tg{flex:none;width:34px;height:34px;border-color:var(--paper)}
+.about .tg svg{width:20px;height:20px;stroke:var(--paper)}
+.about a{color:var(--peach)}
+@media (prefers-reduced-motion:reduce){
+  .boost{animation:none}
+  .flip .face{transition:opacity .3s}
+  .flip .f-back,.flip .f-front{transform:none}
+  .flip .f-front{opacity:0}
+  .flip.shown .f-back{opacity:0;transform:none}
+  .flip.shown .f-front{opacity:1;transform:none}
+  .knob,.knob::after{transition:none}
+}
+</style>
+</head>
+<body>
+<main id="app">
+
+<section id="s-home" class="screen" aria-labelledby="h-home">
+  <div class="top"><span class="brand" id="h-home">Mom Dopamine Deck</span><button class="link" data-go="about">About</button></div>
+  <div class="center">
+    <button class="boost" id="boost" aria-label="Boost button. Press to draw a card">BOOST</button>
+    <p class="hint">press once, then do the small thing</p>
+  </div>
+  <label class="toggle"><input type="checkbox" id="pub"><span class="knob" aria-hidden="true"></span>
+    <span><b>Baby in my arms</b><small>Only cards that work with a child on your lap</small></span></label>
+  <div class="row">
+    <button class="btn" id="quick">Quick one<br><small>under 1 minute</small></button>
+    <button class="btn" id="long">Bigger one<br><small>2 to 5 minutes</small></button>
+    <button class="btn full" data-go="deck">All 80 cards</button>
+  </div>
+</section>
+
+<section id="s-card" class="screen" hidden aria-label="Your card">
+  <div class="top"><button class="link" id="cardBack">Back</button><span class="brand" id="cardKind"></span></div>
+  <div class="stage"><div class="flip" id="flip"><div class="face f-back" id="fBack"></div><div class="face f-front" id="fFront"></div></div></div>
+  <div class="dots" id="dots" hidden></div>
+  <div class="timer" id="timer"></div>
+  <p class="msg" id="msg" role="status"></p>
+  <div class="actions" id="actions"></div>
+</section>
+
+<section id="s-deck" class="screen" hidden aria-label="All cards">
+  <div class="top"><button class="link" data-go="home">Back</button><span class="brand">All 80 cards</span></div>
+  <div class="tabs" id="tabs" role="tablist"></div>
+  <div class="grid" id="grid"></div>
+</section>
+
+<section id="s-about" class="screen about" hidden aria-labelledby="h-about">
+  <div class="top"><button class="link" data-go="home">Back</button><span class="brand">About</span></div>
+  <h2 id="h-about">How this works</h2>
+  <p>Press the button and you get one card. Do the small thing. Not feeling it? Draw another. There are no wrong cards.</p>
+  <ul>
+    <li><span class="tg" id="ic-b"></span><span><b>With baby</b>: works with a child in your arms or in the room.</span></li>
+    <li><span class="tg" id="ic-a"></span><span><b>Needs a moment</b>: door closed, nap time or after bedtime.</span></li>
+    <li><span class="tg" id="ic-t"></span><span><b>Needs a thing</b>: a mug, a snack, a pen, your phone.</span></li>
+  </ul>
+  <p>Five suits of 16: <b>Snack</b>, <b>Senses</b>, <b>Move</b>, <b>Reach Out</b> and <b>Spark</b>. Each card takes from 30 seconds to 5 minutes.</p>
+  <p>Mom Dopamine Deck is a set of small, kind ideas. It is not medical advice or treatment. If you feel low, anxious or overwhelmed for more than a couple of weeks, please talk to your doctor or midwife. For support, try <a href="https://www.postpartum.net" target="_blank" rel="noopener">Postpartum Support International</a>.</p>
+  <p class="small">No account, no tracking. The only thing saved is your "Baby in my arms" switch, on this device.</p>
+</section>
+
+</main>
+
+<script>
+const DATA = {
+  "deck": "Mom Dopamine Deck",
+  "button": "BOOST",
+  "short": "Dopamine Deck",
+  "slug": "dopamine-deck",
+  "fileSlug": "DopamineDeck",
+  "tagline": "80 tiny joys for tired moms. Press once, do one small thing.",
+  "format": "Poker 63x88 mm, bleed 3 mm, 300 dpi",
+  "tags": {
+    "b": "With baby - works with a child in your arms or in the room",
+    "a": "Needs a moment - door closed, nap time or after bedtime",
+    "t": "Needs a thing - a mug, a snack, a pen, your phone"
+  },
+  "suits": [
+    {
+      "id": "snack",
+      "name": "Snack",
+      "shape": "rings",
+      "pal": {
+        "bg": "#F8D5B5",
+        "l": "#FBE5CF",
+        "d": "#F1C59E",
+        "a": "#FFF3E0"
+      },
+      "cards": [
+        {
+          "n": 1,
+          "title": "Hot Sip",
+          "text": "Make a hot drink and drink it while it is still hot. All of it.",
+          "time": "5 min",
+          "tag": "t"
+        },
+        {
+          "n": 2,
+          "title": "Good Plate",
+          "text": "Put one snack on a real plate. Sit down for the first bite.",
+          "time": "2 min",
+          "tag": "t"
+        },
+        {
+          "n": 3,
+          "title": "Sour Kick",
+          "text": "Have something sour or fizzy. Notice your face.",
+          "time": "1 min",
+          "tag": "t"
+        },
+        {
+          "n": 4,
+          "title": "Choc Square",
+          "text": "Take one square of chocolate. Let it melt. Do not chew.",
+          "time": "2 min",
+          "tag": "t"
+        },
+        {
+          "n": 5,
+          "title": "Ice Cold",
+          "text": "Fill a glass with ice and cold water. Sip it slowly.",
+          "time": "1 min",
+          "tag": "t"
+        },
+        {
+          "n": 6,
+          "title": "Secret Stash",
+          "text": "Eat something from your hidden snack spot. It is yours.",
+          "time": "2 min",
+          "tag": "t"
+        },
+        {
+          "n": 7,
+          "title": "Crunch",
+          "text": "Eat something crunchy. Listen to the sound.",
+          "time": "1 min",
+          "tag": "t"
+        },
+        {
+          "n": 8,
+          "title": "Frozen Bite",
+          "text": "Pop a frozen berry or grape. Let it be cold.",
+          "time": "1 min",
+          "tag": "t"
+        },
+        {
+          "n": 9,
+          "title": "Dip It",
+          "text": "Dip anything into anything good. Hummus, honey, peanut butter.",
+          "time": "2 min",
+          "tag": "t"
+        },
+        {
+          "n": 10,
+          "title": "Tea Ritual",
+          "text": "Pick your favorite mug. Make tea slowly. No rushing.",
+          "time": "5 min",
+          "tag": "t"
+        },
+        {
+          "n": 11,
+          "title": "Spice Up",
+          "text": "Add something bold to your food. Chili, lemon, pepper.",
+          "time": "1 min",
+          "tag": "t"
+        },
+        {
+          "n": 12,
+          "title": "Sit to Eat",
+          "text": "Eat your next snack sitting down. Phone face down.",
+          "time": "5 min",
+          "tag": "t"
+        },
+        {
+          "n": 13,
+          "title": "Warm Toast",
+          "text": "Toast something. Add butter while it is hot.",
+          "time": "5 min",
+          "tag": "t"
+        },
+        {
+          "n": 14,
+          "title": "Sweet + Salty",
+          "text": "Mix one salty bite with one sweet bite. Popcorn and chocolate count.",
+          "time": "2 min",
+          "tag": "t"
+        },
+        {
+          "n": 15,
+          "title": "Fruit Cup",
+          "text": "Cut up one fruit you love. Eat it with a fork, like a treat.",
+          "time": "5 min",
+          "tag": "t"
+        },
+        {
+          "n": 16,
+          "title": "One Spoon",
+          "text": "Take one spoonful of ice cream straight from the tub.",
+          "time": "1 min",
+          "tag": "t"
+        }
+      ]
+    },
+    {
+      "id": "senses",
+      "name": "Senses",
+      "shape": "phase",
+      "pal": {
+        "bg": "#DCD0F0",
+        "l": "#EAE2F7",
+        "d": "#CDBFE8",
+        "a": "#F7EAD6"
+      },
+      "cards": [
+        {
+          "n": 1,
+          "title": "Deep Smell",
+          "text": "Smell something you love. Coffee, a candle, your baby’s head. Three slow sniffs.",
+          "time": "30 sec",
+          "tag": "b"
+        },
+        {
+          "n": 2,
+          "title": "Warm Hands",
+          "text": "Hold a warm mug, or run your hands under warm water.",
+          "time": "1 min",
+          "tag": "t"
+        },
+        {
+          "n": 3,
+          "title": "Window Light",
+          "text": "Stand by a window. Let the light land on your face.",
+          "time": "1 min",
+          "tag": "b"
+        },
+        {
+          "n": 4,
+          "title": "One Song",
+          "text": "Play one song you loved before kids. All the way through.",
+          "time": "4 min",
+          "tag": "b"
+        },
+        {
+          "n": 5,
+          "title": "Soft Thing",
+          "text": "Touch the softest thing near you. Stay with it for ten seconds.",
+          "time": "30 sec",
+          "tag": "b"
+        },
+        {
+          "n": 6,
+          "title": "Lotion Hands",
+          "text": "Rub lotion into your hands slowly. Smell it.",
+          "time": "1 min",
+          "tag": "t"
+        },
+        {
+          "n": 7,
+          "title": "Cold Splash",
+          "text": "Splash cold water on your face. Pat dry.",
+          "time": "1 min",
+          "tag": "a"
+        },
+        {
+          "n": 8,
+          "title": "Lamp Glow",
+          "text": "Turn off the big light. Turn on one lamp.",
+          "time": "1 min",
+          "tag": "a"
+        },
+        {
+          "n": 9,
+          "title": "Fresh Air",
+          "text": "Open a window or a door. Take three breaths of outside air.",
+          "time": "1 min",
+          "tag": "b"
+        },
+        {
+          "n": 10,
+          "title": "Sound Hunt",
+          "text": "Close your eyes. Find three sounds in the room.",
+          "time": "1 min",
+          "tag": "b"
+        },
+        {
+          "n": 11,
+          "title": "Extra Minute",
+          "text": "Stand under hot water one minute longer than you need to.",
+          "time": "1 min",
+          "tag": "a"
+        },
+        {
+          "n": 12,
+          "title": "Cozy Layer",
+          "text": "Put on your softest sweater or socks.",
+          "time": "1 min",
+          "tag": "t"
+        },
+        {
+          "n": 13,
+          "title": "Scent Swap",
+          "text": "Open a spice jar or a tea box. Smell it.",
+          "time": "30 sec",
+          "tag": "t"
+        },
+        {
+          "n": 14,
+          "title": "Color Spot",
+          "text": "Find your favorite color in the room. Name five things in it.",
+          "time": "1 min",
+          "tag": "b"
+        },
+        {
+          "n": 15,
+          "title": "Sun Patch",
+          "text": "Sit in a patch of sun, like a cat.",
+          "time": "5 min",
+          "tag": "b"
+        },
+        {
+          "n": 16,
+          "title": "Quiet Ears",
+          "text": "Put in earplugs or headphones. Sit in the quiet.",
+          "time": "2 min",
+          "tag": "t"
+        }
+      ]
+    },
+    {
+      "id": "move",
+      "name": "Move",
+      "shape": "waves",
+      "pal": {
+        "bg": "#CBE5B8",
+        "l": "#DDEFCE",
+        "d": "#BCDCA6",
+        "a": "#F6EBC8"
+      },
+      "cards": [
+        {
+          "n": 1,
+          "title": "Shake Out",
+          "text": "Shake your hands, then arms, then legs. Like a wet dog.",
+          "time": "30 sec",
+          "tag": "a"
+        },
+        {
+          "n": 2,
+          "title": "Door Stretch",
+          "text": "Hands on the door frame. Lean forward. Open your chest.",
+          "time": "30 sec",
+          "tag": "a"
+        },
+        {
+          "n": 3,
+          "title": "Sway",
+          "text": "Sway side to side. Hold your baby or hold nothing.",
+          "time": "1 min",
+          "tag": "b"
+        },
+        {
+          "n": 4,
+          "title": "Neck Roll",
+          "text": "Let your head roll slowly from side to side.",
+          "time": "30 sec",
+          "tag": "b"
+        },
+        {
+          "n": 5,
+          "title": "Tiptoes",
+          "text": "Rise onto your toes five times while the kettle boils.",
+          "time": "30 sec",
+          "tag": "b"
+        },
+        {
+          "n": 6,
+          "title": "Wall Push",
+          "text": "Push a wall like you are moving it. Ten seconds, twice.",
+          "time": "30 sec",
+          "tag": "a"
+        },
+        {
+          "n": 7,
+          "title": "Kitchen Dance",
+          "text": "One song. Dance in the kitchen. No rules.",
+          "time": "4 min",
+          "tag": "b"
+        },
+        {
+          "n": 8,
+          "title": "Stairs",
+          "text": "Go up and down the stairs once, fast.",
+          "time": "1 min",
+          "tag": "a"
+        },
+        {
+          "n": 9,
+          "title": "Floor Rock",
+          "text": "Lie on the floor. Hug your knees. Rock a little.",
+          "time": "2 min",
+          "tag": "a"
+        },
+        {
+          "n": 10,
+          "title": "Hip Circles",
+          "text": "Make big slow hip circles. Ten each way.",
+          "time": "1 min",
+          "tag": "b"
+        },
+        {
+          "n": 11,
+          "title": "Roll Back",
+          "text": "Roll your shoulders back ten times, slowly.",
+          "time": "30 sec",
+          "tag": "b"
+        },
+        {
+          "n": 12,
+          "title": "Walk Out",
+          "text": "Walk around the block. Phone stays home if you can.",
+          "time": "5 min",
+          "tag": "a"
+        },
+        {
+          "n": 13,
+          "title": "Reach Up",
+          "text": "Reach both arms up. Rise on your toes. Drop as you breathe out.",
+          "time": "30 sec",
+          "tag": "b"
+        },
+        {
+          "n": 14,
+          "title": "Low Squat",
+          "text": "Sit in a low squat for a few breaths.",
+          "time": "1 min",
+          "tag": "a"
+        },
+        {
+          "n": 15,
+          "title": "Ten Jumps",
+          "text": "Ten small jumps. Right now.",
+          "time": "30 sec",
+          "tag": "a"
+        },
+        {
+          "n": 16,
+          "title": "House Lap",
+          "text": "Walk one slow lap of the house. Look up at the ceiling.",
+          "time": "2 min",
+          "tag": "b"
+        }
+      ]
+    },
+    {
+      "id": "reach",
+      "name": "Reach Out",
+      "shape": "stack",
+      "pal": {
+        "bg": "#BFDDF2",
+        "l": "#D6EAF8",
+        "d": "#AACFEA",
+        "a": "#FBEFD2"
+      },
+      "cards": [
+        {
+          "n": 1,
+          "title": "Voice Note",
+          "text": "Send a 20-second voice note to a friend. Say anything.",
+          "time": "1 min",
+          "tag": "t"
+        },
+        {
+          "n": 2,
+          "title": "Heart Text",
+          "text": "Text one friend a heart. No reply needed.",
+          "time": "30 sec",
+          "tag": "t"
+        },
+        {
+          "n": 3,
+          "title": "Funny Share",
+          "text": "Send a friend something that made you laugh.",
+          "time": "1 min",
+          "tag": "t"
+        },
+        {
+          "n": 4,
+          "title": "Real Hello",
+          "text": "Say a proper hello to someone at the park or the store.",
+          "time": "1 min",
+          "tag": "b"
+        },
+        {
+          "n": 5,
+          "title": "Thank You",
+          "text": "Text someone a thank you. Name the exact thing.",
+          "time": "2 min",
+          "tag": "t"
+        },
+        {
+          "n": 6,
+          "title": "Old Friend",
+          "text": "Message someone you have not talked to in a year. Say “thinking of you.”",
+          "time": "2 min",
+          "tag": "t"
+        },
+        {
+          "n": 7,
+          "title": "Compliment",
+          "text": "Give one real compliment to someone near you.",
+          "time": "1 min",
+          "tag": "b"
+        },
+        {
+          "n": 8,
+          "title": "Small Ask",
+          "text": "Ask for one small, clear thing. “Can you bring bread?”",
+          "time": "2 min",
+          "tag": "t"
+        },
+        {
+          "n": 9,
+          "title": "Mom Smile",
+          "text": "Smile at another mom. You both know.",
+          "time": "30 sec",
+          "tag": "b"
+        },
+        {
+          "n": 10,
+          "title": "Hear a Voice",
+          "text": "Call someone while you walk or feed your baby.",
+          "time": "5 min",
+          "tag": "b"
+        },
+        {
+          "n": 11,
+          "title": "One True Thing",
+          "text": "Tell someone one honest thing about your day.",
+          "time": "2 min",
+          "tag": "t"
+        },
+        {
+          "n": 12,
+          "title": "Photo Share",
+          "text": "Send a favorite photo of your kid to someone who loves them.",
+          "time": "1 min",
+          "tag": "t"
+        },
+        {
+          "n": 13,
+          "title": "Long Hug",
+          "text": "Hug your partner or your kid for a full 20 seconds.",
+          "time": "30 sec",
+          "tag": "b"
+        },
+        {
+          "n": 14,
+          "title": "Coffee Date",
+          "text": "Put one coffee date with a friend in the calendar.",
+          "time": "2 min",
+          "tag": "t"
+        },
+        {
+          "n": 15,
+          "title": "Reply Late",
+          "text": "Answer one old message you have been avoiding. Short is fine.",
+          "time": "2 min",
+          "tag": "t"
+        },
+        {
+          "n": 16,
+          "title": "Tell Baby",
+          "text": "Tell your baby about your day, out loud, like a friend.",
+          "time": "2 min",
+          "tag": "b"
+        }
+      ]
+    },
+    {
+      "id": "spark",
+      "name": "Spark",
+      "shape": "land",
+      "pal": {
+        "bg": "#F5CBDA",
+        "l": "#FAE0EA",
+        "d": "#EDB9CD",
+        "a": "#FFF2D9"
+      },
+      "cards": [
+        {
+          "n": 1,
+          "title": "My Playlist",
+          "text": "Start one playlist of songs just for you.",
+          "time": "5 min",
+          "tag": "t"
+        },
+        {
+          "n": 2,
+          "title": "Doodle",
+          "text": "Doodle on a sticky note. Ugly is fine.",
+          "time": "1 min",
+          "tag": "t"
+        },
+        {
+          "n": 3,
+          "title": "Wish List",
+          "text": "Add one thing you want, just for you, to a wish list.",
+          "time": "2 min",
+          "tag": "t"
+        },
+        {
+          "n": 4,
+          "title": "One Page",
+          "text": "Read one page of a real book.",
+          "time": "2 min",
+          "tag": "t"
+        },
+        {
+          "n": 5,
+          "title": "Small Glow",
+          "text": "Put on lipstick, earrings, or your favorite scent.",
+          "time": "1 min",
+          "tag": "t"
+        },
+        {
+          "n": 6,
+          "title": "Gold Star",
+          "text": "Write down one thing you did today. Give it a star.",
+          "time": "1 min",
+          "tag": "t"
+        },
+        {
+          "n": 7,
+          "title": "Dream Trip",
+          "text": "Look at ten photos of a place you want to visit.",
+          "time": "2 min",
+          "tag": "t"
+        },
+        {
+          "n": 8,
+          "title": "Done List",
+          "text": "Write what you already did today. Not what is left.",
+          "time": "2 min",
+          "tag": "t"
+        },
+        {
+          "n": 9,
+          "title": "Silly Face",
+          "text": "Make a silly face in the mirror. Hold it.",
+          "time": "30 sec",
+          "tag": "a"
+        },
+        {
+          "n": 10,
+          "title": "Tick a Box",
+          "text": "Finish one tiny job. Tick it off a list.",
+          "time": "2 min",
+          "tag": "t"
+        },
+        {
+          "n": 11,
+          "title": "Small Treat",
+          "text": "Pick one small thing for yourself. Under five dollars.",
+          "time": "5 min",
+          "tag": "t"
+        },
+        {
+          "n": 12,
+          "title": "Learn One",
+          "text": "Learn one new word or one new fact.",
+          "time": "2 min",
+          "tag": "t"
+        },
+        {
+          "n": 13,
+          "title": "Light a Candle",
+          "text": "Light a candle. Watch the flame for a bit.",
+          "time": "1 min",
+          "tag": "t"
+        },
+        {
+          "n": 14,
+          "title": "Bubbles",
+          "text": "Blow bubbles, with your kid or alone.",
+          "time": "5 min",
+          "tag": "t"
+        },
+        {
+          "n": 15,
+          "title": "Secret Plan",
+          "text": "Plan one thing just for you, next week.",
+          "time": "2 min",
+          "tag": "t"
+        },
+        {
+          "n": 16,
+          "title": "Old Hobby",
+          "text": "Do five minutes of something you loved before kids.",
+          "time": "5 min",
+          "tag": "t"
+        }
+      ]
+    }
+  ],
+  "extras": [
+    {
+      "id": "howto",
+      "title": "How to Use",
+      "text": "Draw one card. Do the small thing. Take a card whenever you need a lift. There are no wrong cards. Scan the code on the back to open the app."
+    }
+  ]
+};
+const TAG = {
+  b:{label:'With baby',d:'<path d="M12 20s-7-4.4-7-10a4 4 0 0 1 7-2.4A4 4 0 0 1 19 10c0 5.6-7 10-7 10z"/>'},
+  a:{label:'Needs a moment',d:'<path d="M19 14.5A7.5 7.5 0 0 1 9.5 5a7.5 7.5 0 1 0 9.5 9.5z"/>'},
+  t:{label:'Needs a thing',d:'<path d="M4 8l8-4 8 4v8l-8 4-8-4z"/><path d="M4 8l8 4 8-4M12 12v8"/>'}
+};
+const svgIcon=d=>'<svg viewBox="0 0 24 24" aria-hidden="true">'+d+'</svg>';
+const esc=s=>s.replace(/&/g,'&amp;').replace(/</g,'&lt;');
+const PAL=Object.fromEntries(DATA.suits.map(s=>[s.id,s.pal]));
+const SH=Object.fromEntries(DATA.suits.map(s=>[s.id,s.shape]));
+/* ---- abstract shapes, one pattern per suit, varied by card number (same as the printed cards) ---- */
+const rng=seed=>{let s=seed*7919+104729;return()=>{s=(s*9301+49297)%233280;return s/233280}};
+const wave=(y,amp,ph,fill,cyc)=>{let d=`M-6 ${y}`;for(let x=-6;x<=70;x+=1.5)d+=` L${x} ${(y+amp*Math.sin(x/63*Math.PI*2*cyc+ph)).toFixed(2)}`;return `<path d="${d} V98 H-6Z" fill="${fill}"/>`};
+const C=(x,y,r,f)=>`<circle cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="${r.toFixed(1)}" fill="${f}"/>`;
+let clipN=0;
+function shapes(id,n){
+  const P=PAL[id], r=rng(n+id.length*13), top=C(58,5,17,P.l)+C(58,5,9,P.bg);
+  if(SH[id]==='rings'){const cx=14+r()*36, cy=90+r()*8, s=.7+n*.03; let o='';[[58,P.l],[46,P.d],[34,P.l],[23,P.d],[12,P.a]].forEach(([rad,f])=>o+=C(cx,cy,rad*s,f));return top+o}
+  if(SH[id]==='stack'){const k=3+Math.ceil(n/6), cols=[P.d,P.l,P.d,P.a,P.d]; let y=90,o='';
+    for(let i=0;i<k;i++){const w=Math.max(16,46-i*8),h=7.2,x=(8+r()*26)+(46-w)/2-6;o+=`<rect x="${x.toFixed(1)}" y="${(y-h).toFixed(1)}" width="${w}" height="${h+6}" rx="3.6" fill="${cols[i%5]}"/>`;y-=h*.82}return top+o}
+  if(SH[id]==='phase'){const dx=(n-8.5)*3.2,id2='mc'+(++clipN);return top+C(36,70,26,P.l)+`<clipPath id="${id2}"><circle cx="36" cy="70" r="26"/></clipPath><g clip-path="url(#${id2})">${C(36+dx,70,26,P.d)}</g>`+C(14,60,3,P.a)}
+  if(SH[id]==='land'){const rr=7+n*.9;return top+C(36,74,rr,P.a)+`<rect x="-6" y="74" width="76" height="24" fill="${P.d}"/><rect x="-6" y="80" width="76" height="18" fill="${P.l}"/><rect x="-6" y="85" width="76" height="13" fill="${P.d}"/>`}
+  return top+wave(66,2+(n%5)*.7,n*.6,P.l,2)+wave(74,2.4+(n%4)*.6,n*.5+1.5,P.d,2.5)+wave(82,2.6,n*.4+3,P.a,3);
+}
+function cardHTML(s,c){const t=TAG[c.tag];
+  return `<div class="cw"><article class="card" style="--bg:${PAL[s.id].bg}" aria-label="${esc(s.name)} ${c.n}: ${esc(c.title)}">
+  <svg class="bgart" viewBox="0 0 63 88" preserveAspectRatio="xMidYMid slice" aria-hidden="true">${shapes(s.id,c.n)}</svg><div class="grainov"></div>
+  <div class="in"><div class="hd"><span class="nm">${s.name}</span><span class="no">${c.n}</span></div>
+  <div class="ttl">${esc(c.title)}</div><div class="txt">${esc(c.text)}</div><div class="sp"></div>
+  <div class="ft"><span class="pill">${c.time}</span><span class="tg" role="img" aria-label="${t.label}">${svgIcon(t.d)}</span></div></div></article></div>`}
+const backHTML=()=>`<div class="cw"><div class="back"><svg viewBox="0 0 63 88" aria-hidden="true"><rect width="63" height="88" fill="#1F2A44"/>
+  <circle cx="0" cy="0" r="22" fill="${DATA.suits[0].pal.bg}"/><circle cx="63" cy="0" r="22" fill="${DATA.suits[1].pal.bg}"/><circle cx="0" cy="88" r="22" fill="${DATA.suits[2].pal.bg}"/><circle cx="63" cy="88" r="22" fill="${DATA.suits[3].pal.bg}"/>
+  <circle cx="31.5" cy="44" r="22" fill="${DATA.suits[4].pal.bg}" fill-opacity=".3"/><circle cx="31.5" cy="44" r="15" fill="#F7D58B"/>
+  <text x="31.5" y="46.3" text-anchor="middle" font-family="DM Sans,sans-serif" font-weight="700" font-size="5.6" fill="#2C3956" letter-spacing=".5">${DATA.button}</text></svg></div></div>`;
+
+/* ---- grain tile, made once ---- */
+(function(){try{const c=document.createElement('canvas');c.width=c.height=200;const x=c.getContext('2d'),im=x.createImageData(200,200);
+  for(let i=0;i<40000;i++){im.data[i*4]=44;im.data[i*4+1]=57;im.data[i*4+2]=86;im.data[i*4+3]=Math.pow(Math.random(),1.8)*.13*255}
+  x.putImageData(im,0,0);document.documentElement.style.setProperty('--grain',`url(${c.toDataURL()})`)}catch(e){}})();
+
+/* ---- helpers ---- */
+const $=id=>document.getElementById(id);
+const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+const ALL=DATA.suits.flatMap(s=>s.cards.map(c=>({s,c})));
+const keyOf=x=>x.s.id+x.c.n;
+const secOf=c=>{const m=/^(\d+)\s*(sec|min)/.exec(c.time);return m?+m[1]*(m[2]==='min'?60:1):60};
+const state={pub:false,hist:[],cur:null,mode:'any',suit:DATA.suits[0].id};
+try{state.pub=localStorage.getItem('dd.baby')==='1'}catch(e){}
+$('pub').checked=state.pub;
+$('pub').onchange=e=>{state.pub=e.target.checked;try{localStorage.setItem('dd.baby',state.pub?'1':'0')}catch(err){}};
+
+function pick(kind){
+  let pool=ALL.filter(x=>(!state.pub||x.c.tag==='b')&&(kind==='quick'?secOf(x.c)<=60:kind==='long'?secOf(x.c)>=120:true));
+  if(!pool.length)pool=ALL;
+  const fresh=pool.filter(x=>!state.hist.includes(keyOf(x)));
+  if(fresh.length)pool=fresh;else state.hist=[];
+  const x=pool[Math.floor(Math.random()*pool.length)];state.hist.push(keyOf(x));if(state.hist.length>40)state.hist.shift();return x;
+}
+
+/* ---- screens ---- */
+const screens=['home','card','deck','about'];
+function show(name,push){
+  screens.forEach(n=>$('s-'+n).hidden=n!==name);
+  if(name!=='card')stopTimer(true);
+  if(push!==false&&location.hash!=='#'+name){try{history.pushState(null,'','#'+name)}catch(e){}}
+  window.scrollTo(0,0);
+  const h=$('s-'+name).querySelector('h1,h2,.brand');if(h){h.setAttribute('tabindex','-1');h.focus({preventScroll:true})}
+}
+addEventListener('popstate',()=>{const n=location.hash.slice(1);show(screens.includes(n)&&(n!=='card'||state.cur)?n:'home',false)});
+document.querySelectorAll('[data-go]').forEach(b=>b.onclick=()=>{const n=b.dataset.go;if(n==='deck')renderDeck();show(n)});
+$('ic-b').innerHTML=svgIcon(TAG.b.d);$('ic-a').innerHTML=svgIcon(TAG.a.d);$('ic-t').innerHTML=svgIcon(TAG.t.d);
+
+/* ---- card screen ---- */
+function openCard(x,kind){
+  state.cur=x;
+  $('fBack').innerHTML=backHTML();$('fFront').innerHTML=cardHTML(x.s,x.c);
+  const fl=$('flip');fl.classList.remove('shown');
+  show('card');
+  $('cardKind').textContent=kind||'';
+  $('msg').textContent='';
+  $('dots').hidden=true;
+  stopTimer(true);renderTimer();renderActions();
+  setTimeout(()=>fl.classList.add('shown'),reduce?20:120);
+}
+function renderActions(){
+  const a=$('actions');let h='';
+  if(state.mode==='open')h+=`<button class="btn primary" id="aDeck">Back to all cards</button>`;
+  else h+=`<button class="btn primary" id="aMore">Another card</button>`;
+  h+=`<button class="btn" id="aHome">That's enough for now</button>`;
+  a.innerHTML=h;
+  const on=(id,f)=>{const e=$(id);if(e)e.onclick=f};
+  on('aMore',()=>draw(state.mode));
+  on('aDeck',()=>show('deck'));
+  on('aHome',()=>show('home'));
+}
+function draw(kind){state.mode=kind||'any';openCard(pick(state.mode),state.mode==='quick'?'Quick one':state.mode==='long'?'Bigger one':'')}
+$('boost').onclick=()=>draw('any');$('quick').onclick=()=>draw('quick');$('long').onclick=()=>draw('long');
+$('cardBack').onclick=()=>{state.mode==='open'?show('deck'):show('home')};
+
+/* ---- timer ---- */
+let tm=null,wl=null;
+async function lock(){try{wl=await navigator.wakeLock.request('screen')}catch(e){}}
+function unlock(){try{wl&&wl.release()}catch(e){}wl=null}
+function fmt(s){s=Math.max(0,Math.ceil(s));return Math.floor(s/60)+':'+String(s%60).padStart(2,'0')}
+function renderTimer(){
+  const t=$('timer'),total=secOf(state.cur.c);
+  t.innerHTML=`<button class="btn" id="tStart">Start ${state.cur.c.time} timer</button>`;
+  $('tStart').onclick=()=>startTimer(total);
+}
+function startTimer(total){
+  const R=34,Cc=2*Math.PI*R,end=Date.now()+total*1000;
+  $('timer').innerHTML=`<div class="ring"><svg viewBox="0 0 76 76" aria-hidden="true"><circle class="bg" cx="38" cy="38" r="${R}"/><circle class="fg" id="tFg" cx="38" cy="38" r="${R}" stroke-dasharray="${Cc}" stroke-dashoffset="0"/></svg><span id="tTxt">${fmt(total)}</span></div><button class="btn" id="tStop">Stop</button>`;
+  $('tStop').onclick=()=>{stopTimer(true);renderTimer()};
+  lock();
+  const tick=()=>{const left=(end-Date.now())/1000;
+    $('tTxt').textContent=fmt(left);$('tFg').setAttribute('stroke-dashoffset',String(Cc*(1-Math.max(0,left)/total)));
+    if(left<=0){stopTimer(true);$('timer').innerHTML=`<button class="btn" id="tStart">Run it again</button>`;$('tStart').onclick=()=>startTimer(total);$('msg').textContent="Time's up. Another card, or just stay here a moment."}};
+  tm=setInterval(tick,250);tick();
+}
+function stopTimer(quiet){if(tm){clearInterval(tm);tm=null}unlock();if(!quiet)$('msg').textContent=''}
+
+/* ---- all cards ---- */
+function renderDeck(){
+  const tabs=$('tabs');
+  tabs.innerHTML=DATA.suits.map(s=>`<button class="tab" role="tab" data-s="${s.id}" aria-selected="${s.id===state.suit}"><i style="background:${PAL[s.id].bg}"></i>${s.name}</button>`).join('');
+  tabs.querySelectorAll('.tab').forEach(b=>b.onclick=()=>{state.suit=b.dataset.s;renderDeck()});
+  const s=DATA.suits.find(x=>x.id===state.suit);
+  $('grid').innerHTML=s.cards.map(c=>`<button class="tile" data-n="${c.n}" aria-label="Open ${esc(s.name)} ${c.n}: ${esc(c.title)}">${cardHTML(s,c)}</button>`).join('');
+  $('grid').querySelectorAll('.tile').forEach(t=>t.onclick=()=>{state.mode='open';openCard({s,c:s.cards.find(c=>c.n===+t.dataset.n)},s.name)});
+}
+
+if('serviceWorker' in navigator&&location.protocol!=='file:'&&!/__NOSW__/.test('sw')){navigator.serviceWorker.register('sw.js').catch(()=>{})}
+show('home',false);
+</script>
+</body></html>
