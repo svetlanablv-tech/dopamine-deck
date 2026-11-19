@@ -46,6 +46,8 @@ p{margin:0}
   font-family:var(--font-display);font-weight:700;font-size:clamp(1.5rem,7vw,2rem);letter-spacing:.14em;
   box-shadow:0 0 0 14px rgba(247,213,139,.16),0 0 0 32px rgba(247,213,139,.08);animation:pulse 6s ease-in-out infinite}
 .boost:active{transform:scale(.97)}
+.boost{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.35em}
+.boost .pl{width:32%;height:auto;fill:var(--ink)}
 @keyframes pulse{0%,100%{box-shadow:0 0 0 14px rgba(247,213,139,.16),0 0 0 32px rgba(247,213,139,.08)}50%{box-shadow:0 0 0 20px rgba(247,213,139,.14),0 0 0 42px rgba(247,213,139,.06)}}
 .hint{color:var(--muted);text-align:center}
 .toggle{display:flex;gap:14px;align-items:center;background:var(--navy2);border-radius:16px;padding:14px 16px;cursor:pointer;min-height:64px}
@@ -110,9 +112,30 @@ p{margin:0}
 .tab{flex:none;min-height:44px;padding:8px 16px;border-radius:99px;border:1.5px solid var(--line);background:transparent;font-family:var(--font-display);font-weight:700;display:flex;gap:8px;align-items:center}
 .tab[aria-selected="true"]{background:var(--paper);color:var(--ink);border-color:var(--paper)}
 .tab i{width:14px;height:14px;border-radius:50%;display:block}
-.suits{display:flex;flex-wrap:wrap;gap:8px;justify-content:center}
-.suits .tab{min-height:40px;padding:6px 14px;font-size:.9rem}
-.suits .tab[aria-pressed="true"]{background:var(--paper);color:var(--ink);border-color:var(--paper)}
+.msg.ok{color:var(--paper);font-weight:700}
+.pick{grid-column:1/-1;display:flex;flex-direction:column;gap:8px}
+.pick .lbl{font-size:.85rem;color:var(--muted);text-align:center}
+.chips{display:flex;flex-wrap:wrap;gap:8px;justify-content:center}
+.chip{min-height:44px;border-radius:99px;border:1.5px solid var(--line);background:transparent;padding:6px 14px 6px 10px;font-family:var(--font-display);font-weight:700;font-size:.9rem;display:flex;align-items:center;gap:8px}
+.chip i{width:16px;height:16px;border-radius:50%;flex:none}
+.chip:active{transform:scale(.97)}
+/* short phones (360x640): keep the whole home screen in view, nothing to scroll for */
+@media (max-height:760px){
+  .screen{gap:9px;padding-block:6px 12px}
+  .top{min-height:36px}
+  #s-home .center{gap:6px;padding-block:2px;flex:none}
+  #s-home .boost{width:min(36vw,128px);font-size:1.2rem;gap:.25em;animation:none;box-shadow:0 0 0 7px rgba(247,213,139,.16),0 0 0 15px rgba(247,213,139,.08)}
+  #s-home .hint{font-size:.85rem;line-height:1.25;margin:0}
+  .toggle{min-height:50px;padding:8px 14px}
+  .toggle small{font-size:.8rem;line-height:1.2}
+  .row{gap:8px}
+  .btn{min-height:44px;padding:5px 8px;font-size:.88rem}
+  .btn small{font-size:.76rem}
+  .pick{gap:5px}
+  .pick .lbl{font-size:.78rem}
+  .chips{gap:6px}
+  .chip{min-height:38px;padding:4px 12px 4px 8px;font-size:.85rem}
+}
 .grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
 .tile{border:0;background:none;padding:0;aspect-ratio:63/88;border-radius:5cqw;text-align:left}
 .tile .cw{pointer-events:none}
@@ -147,15 +170,15 @@ p{margin:0}
 <section id="s-home" class="screen" aria-labelledby="h-home">
   <div class="top"><span class="brand" id="h-home">Mom Dopamine Deck</span><button class="link" data-go="about">About</button></div>
   <div class="center">
-    <button class="boost" id="boost" aria-label="Boost button. Press to draw a card">BOOST</button>
+    <button class="boost" id="boost" aria-label="Boost button. Press to draw a card"><svg class="pl" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l2.4 7.6L22 12l-7.6 2.4L12 22l-2.4-7.6L2 12l7.6-2.4z"/></svg>BOOST</button>
     <p class="hint">press once, then do the small thing</p>
-    <div class="suits" id="suitPick" role="group" aria-label="Choose a suit"></div>
   </div>
   <label class="toggle"><input type="checkbox" id="pub"><span class="knob" aria-hidden="true"></span>
     <span><b>Baby in my arms</b><small>Only cards that work with a child on your lap</small></span></label>
   <div class="row">
     <button class="btn" id="quick">Quick one<br><small>under 1 minute</small></button>
     <button class="btn" id="long">Bigger one<br><small>2 to 5 minutes</small></button>
+    <div class="pick"><div class="lbl" id="pickLbl">Or choose a suit</div><div class="chips" id="chips" role="group" aria-labelledby="pickLbl"></div></div>
     <button class="btn full" data-go="deck">All 80 cards</button>
   </div>
 </section>
@@ -897,20 +920,12 @@ const keyOf=x=>x.s.id+x.c.n;
 const secOf=c=>{const m=/^(\d+)\s*(sec|min)/.exec(c.time);return m?+m[1]*(m[2]==='min'?60:1):60};
 const state={pub:false,hist:[],cur:null,mode:'any',suit:DATA.suits[0].id};
 try{state.pub=localStorage.getItem('dd.baby')==='1'}catch(e){}
-state.pickSuit='any';
-try{const s=localStorage.getItem('dd.suit');if(s&&DATA.suits.some(x=>x.id===s))state.pickSuit=s}catch(e){}
-function renderSuitPick(){
-  const el=$('suitPick');
-  el.innerHTML=[['any','Any suit','conic-gradient('+DATA.suits.map((s,i)=>PAL[s.id].bg+' '+(i*20)+'% '+((i+1)*20)+'%').join(',')+')'],...DATA.suits.map(s=>[s.id,s.name,PAL[s.id].bg])].map(([id,n,c])=>
-    `<button class="tab" data-s="${id}" aria-pressed="${id===state.pickSuit}"><i style="background:${c}"></i>${n}</button>`).join('');
-  el.querySelectorAll('.tab').forEach(b=>b.onclick=()=>{state.pickSuit=b.dataset.s;try{localStorage.setItem('dd.suit',state.pickSuit)}catch(e){}renderSuitPick()});
-}
 $('pub').checked=state.pub;
 $('pub').onchange=e=>{state.pub=e.target.checked;try{localStorage.setItem('dd.baby',state.pub?'1':'0')}catch(err){}};
 
 function pick(kind){
-  let pool=ALL.filter(x=>(state.pickSuit==='any'||x.s.id===state.pickSuit)&&(!state.pub||x.c.tag==='b')&&(kind==='quick'?secOf(x.c)<=60:kind==='long'?secOf(x.c)>=120:true));
-  if(!pool.length)pool=ALL.filter(x=>state.pickSuit==='any'||x.s.id===state.pickSuit);
+  let pool=ALL.filter(x=>(!kind.startsWith('suit-')||x.s.id===kind.slice(5))&&(!state.pub||x.c.tag==='b')&&(kind==='quick'?secOf(x.c)<=60:kind==='long'?secOf(x.c)>=120:true));
+  if(!pool.length)pool=ALL.filter(x=>!kind.startsWith('suit-')||x.s.id===kind.slice(5));
   const fresh=pool.filter(x=>!state.hist.includes(keyOf(x)));
   if(fresh.length)pool=fresh;else state.hist=[];
   const x=pool[Math.floor(Math.random()*pool.length)];state.hist.push(keyOf(x));if(state.hist.length>40)state.hist.shift();return x;
@@ -936,24 +951,33 @@ function openCard(x,kind){
   const fl=$('flip');fl.classList.remove('shown');
   show('card');
   $('cardKind').textContent=kind||'';
-  $('msg').textContent='';
+  $('msg').textContent='';$('msg').classList.remove('ok');
   $('dots').hidden=true;
   stopTimer(true);renderTimer();renderActions();
   setTimeout(()=>fl.classList.add('shown'),reduce?20:120);
 }
+const PRAISE_DID=['Nice. That counts.','Well done, mama.','A tiny joy, taken.','You did that for you.','Good one.','Look at you.','That was for you.'];
+let lastDid=-1;
+function praise(){let i;do{i=Math.floor(Math.random()*PRAISE_DID.length)}while(i===lastDid);lastDid=i;return PRAISE_DID[i]}
 function renderActions(){
   const a=$('actions');let h='';
-  if(state.mode==='open')h+=`<button class="btn primary" id="aDeck">Back to all cards</button>`;
-  else h+=`<button class="btn primary" id="aMore">Another card</button>`;
+  h+=`<button class="btn primary" id="aDid">I did it</button>`;
+  if(state.mode==='open')h+=`<button class="btn" id="aDeck">Back to all cards</button>`;
+  else h+=`<button class="btn" id="aMore">Another card</button>`;
   h+=`<button class="btn" id="aHome">I feel better</button>`;
   a.innerHTML=h;
   const on=(id,f)=>{const e=$(id);if(e)e.onclick=f};
   on('aMore',()=>draw(state.mode));
   on('aDeck',()=>show('deck'));
   on('aHome',()=>showDone());
+  on('aDid',()=>{const m=$('msg');m.textContent=praise();m.classList.add('ok')});
 }
-function draw(kind){state.mode=kind||'any';openCard(pick(state.mode),state.mode==='quick'?'Quick one':state.mode==='long'?'Bigger one':'')}
+const MODES={quick:'Quick one',long:'Bigger one'};
+DATA.suits.forEach(s=>{MODES['suit-'+s.id]=s.name});
+function draw(kind){state.mode=kind||'any';openCard(pick(state.mode),MODES[state.mode]||'')}
 $('boost').onclick=()=>draw('any');$('quick').onclick=()=>draw('quick');$('long').onclick=()=>draw('long');
+$('chips').innerHTML=DATA.suits.map(su=>`<button class="chip" data-suit="${su.id}"><i style="background:${PAL[su.id].bg}"></i>${su.name}</button>`).join('');
+$('chips').querySelectorAll('.chip').forEach(b=>b.onclick=()=>draw('suit-'+b.dataset.suit));
 $('cardBack').onclick=()=>{state.mode==='open'?show('deck'):show('home')};
 
 /* ---- "I feel better": a small celebration ---- */
@@ -1009,7 +1033,6 @@ function renderDeck(){
 }
 
 if('serviceWorker' in navigator&&location.protocol!=='file:'&&!/__NOSW__/.test('sw')){navigator.serviceWorker.register('sw.js').catch(()=>{})}
-renderSuitPick();
 show('home',false);
 </script>
 </body></html>
